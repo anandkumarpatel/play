@@ -6,6 +6,7 @@ import { VitePWA } from 'vite-plugin-pwa'
 export default defineConfig({
   plugins: [
     TanStackRouterVite(),
+    react(),
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon-180x180', 'maskable-icon-512x512.png'],
@@ -39,6 +40,5 @@ export default defineConfig({
         ],
       },
     }),
-    react(),
   ],
 })
