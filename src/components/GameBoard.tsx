@@ -1,4 +1,4 @@
-import { Center, Container, SimpleGrid } from '@mantine/core'
+import { SimpleGrid } from '@mantine/core'
 import { useNavigate } from '@tanstack/react-router'
 import React, { useEffect, useState } from 'react'
 import FlipCard from './Card'
