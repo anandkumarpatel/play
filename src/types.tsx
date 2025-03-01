@@ -19,4 +19,9 @@ export const games = [
     title: 'Math Match',
     navText: 'Play Math Matching Game',
   },
+  {
+    pathName: 'solitaire',
+    title: 'Solitaire',
+    navText: 'Play Solitaire',
+  },
 ]

@@ -13,6 +13,7 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
 import { Route as WinIndexImport } from './routes/win/index'
+import { Route as SolitaireIndexImport } from './routes/solitaire/index'
 import { Route as NumberIndexImport } from './routes/number/index'
 import { Route as MathIndexImport } from './routes/math/index'
 import { Route as EmojiIndexImport } from './routes/emoji/index'
@@ -29,6 +30,12 @@ const IndexRoute = IndexImport.update({
 const WinIndexRoute = WinIndexImport.update({
   id: '/win/',
   path: '/win/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const SolitaireIndexRoute = SolitaireIndexImport.update({
+  id: '/solitaire/',
+  path: '/solitaire/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -95,6 +102,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NumberIndexImport
       parentRoute: typeof rootRoute
     }
+    '/solitaire/': {
+      id: '/solitaire/'
+      path: '/solitaire'
+      fullPath: '/solitaire'
+      preLoaderRoute: typeof SolitaireIndexImport
+      parentRoute: typeof rootRoute
+    }
     '/win/': {
       id: '/win/'
       path: '/win'
@@ -113,6 +127,7 @@ export interface FileRoutesByFullPath {
   '/emoji': typeof EmojiIndexRoute
   '/math': typeof MathIndexRoute
   '/number': typeof NumberIndexRoute
+  '/solitaire': typeof SolitaireIndexRoute
   '/win': typeof WinIndexRoute
 }
 
@@ -122,6 +137,7 @@ export interface FileRoutesByTo {
   '/emoji': typeof EmojiIndexRoute
   '/math': typeof MathIndexRoute
   '/number': typeof NumberIndexRoute
+  '/solitaire': typeof SolitaireIndexRoute
   '/win': typeof WinIndexRoute
 }
 
@@ -132,15 +148,31 @@ export interface FileRoutesById {
   '/emoji/': typeof EmojiIndexRoute
   '/math/': typeof MathIndexRoute
   '/number/': typeof NumberIndexRoute
+  '/solitaire/': typeof SolitaireIndexRoute
   '/win/': typeof WinIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/color' | '/emoji' | '/math' | '/number' | '/win'
+  fullPaths:
+    | '/'
+    | '/color'
+    | '/emoji'
+    | '/math'
+    | '/number'
+    | '/solitaire'
+    | '/win'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/color' | '/emoji' | '/math' | '/number' | '/win'
-  id: '__root__' | '/' | '/color/' | '/emoji/' | '/math/' | '/number/' | '/win/'
+  to: '/' | '/color' | '/emoji' | '/math' | '/number' | '/solitaire' | '/win'
+  id:
+    | '__root__'
+    | '/'
+    | '/color/'
+    | '/emoji/'
+    | '/math/'
+    | '/number/'
+    | '/solitaire/'
+    | '/win/'
   fileRoutesById: FileRoutesById
 }
 
@@ -150,6 +182,7 @@ export interface RootRouteChildren {
   EmojiIndexRoute: typeof EmojiIndexRoute
   MathIndexRoute: typeof MathIndexRoute
   NumberIndexRoute: typeof NumberIndexRoute
+  SolitaireIndexRoute: typeof SolitaireIndexRoute
   WinIndexRoute: typeof WinIndexRoute
 }
 
@@ -159,6 +192,7 @@ const rootRouteChildren: RootRouteChildren = {
   EmojiIndexRoute: EmojiIndexRoute,
   MathIndexRoute: MathIndexRoute,
   NumberIndexRoute: NumberIndexRoute,
+  SolitaireIndexRoute: SolitaireIndexRoute,
   WinIndexRoute: WinIndexRoute,
 }
 
@@ -177,6 +211,7 @@ export const routeTree = rootRoute
         "/emoji/",
         "/math/",
         "/number/",
+        "/solitaire/",
         "/win/"
       ]
     },
@@ -194,6 +229,9 @@ export const routeTree = rootRoute
     },
     "/number/": {
       "filePath": "number/index.tsx"
+    },
+    "/solitaire/": {
+      "filePath": "solitaire/index.tsx"
     },
     "/win/": {
       "filePath": "win/index.tsx"
