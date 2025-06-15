@@ -28,7 +28,7 @@ function createDeck(): Card[] {
   return suits.flatMap((suit) => ranks.map((rank) => ({ suit, rank, faceUp: false, id: `${rank}${suit}` })))
 }
 
-const easyWin = true
+const easyWin = false
 function shuffle(deck: Card[]): Card[] {
   if (easyWin) return deck
   const arr = [...deck]
@@ -41,12 +41,26 @@ function shuffle(deck: Card[]): Card[] {
 
 const getCardColor = (suit: Suit) => (suit === '♥' || suit === '♦' ? 'red' : 'black')
 
+const LOCAL_STORAGE_KEY = 'solitaire-state'
+
+function newGame() {
+  localStorage.removeItem(LOCAL_STORAGE_KEY)
+  window.location.reload()
+}
+
 const Solitaire: React.FC = () => {
   // State
-  const [stock, setStock] = useState<Card[]>([])
-  const [waste, setWaste] = useState<Card[]>([])
-  const [foundations, setFoundations] = useState<Foundation[]>([[], [], [], []])
-  const [tableau, setTableau] = useState<Tableau[]>([[], [], [], [], [], [], []])
+  let saved = {} as any
+  try {
+    saved = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || '{}')
+  } catch (e) {
+    console.error(e)
+  }
+
+  const [stock, setStock] = useState<Card[]>(saved?.stock || [])
+  const [waste, setWaste] = useState<Card[]>(saved?.waste || [])
+  const [foundations, setFoundations] = useState<Foundation[]>(saved?.foundations || [[], [], [], []])
+  const [tableau, setTableau] = useState<Tableau[]>(saved?.tableau || [[], [], [], [], [], [], []])
   const [selectedCard, setSelectedCard] = useState<SelectedCard | null>(null)
   const [message, setMessage] = useState('')
   const [showMessage, setShowMessage] = useState(false)
@@ -79,6 +93,35 @@ const Solitaire: React.FC = () => {
     return () => window.removeEventListener('resize', setCardSize)
   }, [])
 
+  useEffect(() => {
+    window.addEventListener('new-game', newGame)
+
+    // If all piles are empty, start a new game
+    const allEmpty =
+      (!stock || stock.length === 0) && (!waste || waste.length === 0) && (!foundations || foundations.flat().length === 0) && (!tableau || tableau.flat().length === 0)
+    if (allEmpty) {
+      startGame()
+    }
+
+    return () => {
+      window.removeEventListener('new-game', newGame)
+    }
+  }, [])
+
+  // Save to localStorage on every state change
+  useEffect(() => {
+    const state = {
+      stock,
+      waste,
+      foundations,
+      tableau,
+      selectedCard,
+      message,
+      showMessage,
+    }
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state))
+  }, [stock, waste, foundations, tableau, selectedCard, message, showMessage])
+
   // Start a new game
   const startGame = () => {
     const deck = shuffle(createDeck())
@@ -97,12 +140,9 @@ const Solitaire: React.FC = () => {
     setSelectedCard(null)
     setShowMessage(false)
     setMessage('')
+    // Clear localStorage so a new game doesn't restore old state
+    localStorage.removeItem(LOCAL_STORAGE_KEY)
   }
-
-  // On mount, start game
-  useEffect(() => {
-    startGame()
-  }, [])
 
   // Card click handler
   const onCardClick = (card: Card, source: 'stock' | 'waste' | 'foundation' | 'tableau', pileIndex: number | null, cardIndex: number | null) => {

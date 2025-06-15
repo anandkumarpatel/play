@@ -11,6 +11,14 @@ export const Route = createRootRoute({
           <Link to='/' className='link'>
             <Button variant='subtle'>Home</Button>
           </Link>
+          <Button
+            variant='subtle'
+            onClick={() => {
+              window.dispatchEvent(new Event('new-game'))
+            }}
+          >
+            New Game
+          </Button>
         </Group>
       </AppShell.Header>
       <AppShell.Main style={{ height: '100%' }}>
