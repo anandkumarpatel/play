@@ -1,7 +1,8 @@
 import { useState, useEffect, useCallback } from 'react'
 import { Button, Modal, Text, Group, Stack, Box, Grid, Paper, Title } from '@mantine/core'
 import { Textfit } from 'react-textfit'
-const isDev = true
+const isDev = import.meta.env.IS_DEV
+
 interface Category {
   category: string
   words: string[]
