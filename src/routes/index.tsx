@@ -8,7 +8,7 @@ export const Route = createFileRoute('/')({
 
 export default function Index() {
   return (
-    <Stack gap='xl' align='stretch' justify='center'>
+    <Stack gap='xl' align='stretch' justify='center' p='xs'>
       {games.map((game, index) => (
         <Button component={Link} key={index} to={game.pathName} variant='filled' fullWidth size='xl'>
           {game.navText}

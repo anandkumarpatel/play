@@ -17,6 +17,7 @@ import { Route as SolitaireIndexImport } from './routes/solitaire/index'
 import { Route as NumberIndexImport } from './routes/number/index'
 import { Route as MathIndexImport } from './routes/math/index'
 import { Route as EmojiIndexImport } from './routes/emoji/index'
+import { Route as ConnectionsIndexImport } from './routes/connections/index'
 import { Route as ColorIndexImport } from './routes/color/index'
 
 // Create/Update Routes
@@ -57,6 +58,12 @@ const EmojiIndexRoute = EmojiIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const ConnectionsIndexRoute = ConnectionsIndexImport.update({
+  id: '/connections/',
+  path: '/connections/',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const ColorIndexRoute = ColorIndexImport.update({
   id: '/color/',
   path: '/color/',
@@ -79,6 +86,13 @@ declare module '@tanstack/react-router' {
       path: '/color'
       fullPath: '/color'
       preLoaderRoute: typeof ColorIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/connections/': {
+      id: '/connections/'
+      path: '/connections'
+      fullPath: '/connections'
+      preLoaderRoute: typeof ConnectionsIndexImport
       parentRoute: typeof rootRoute
     }
     '/emoji/': {
@@ -124,6 +138,7 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/color': typeof ColorIndexRoute
+  '/connections': typeof ConnectionsIndexRoute
   '/emoji': typeof EmojiIndexRoute
   '/math': typeof MathIndexRoute
   '/number': typeof NumberIndexRoute
@@ -134,6 +149,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/color': typeof ColorIndexRoute
+  '/connections': typeof ConnectionsIndexRoute
   '/emoji': typeof EmojiIndexRoute
   '/math': typeof MathIndexRoute
   '/number': typeof NumberIndexRoute
@@ -145,6 +161,7 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/color/': typeof ColorIndexRoute
+  '/connections/': typeof ConnectionsIndexRoute
   '/emoji/': typeof EmojiIndexRoute
   '/math/': typeof MathIndexRoute
   '/number/': typeof NumberIndexRoute
@@ -157,17 +174,27 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/color'
+    | '/connections'
     | '/emoji'
     | '/math'
     | '/number'
     | '/solitaire'
     | '/win'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/color' | '/emoji' | '/math' | '/number' | '/solitaire' | '/win'
+  to:
+    | '/'
+    | '/color'
+    | '/connections'
+    | '/emoji'
+    | '/math'
+    | '/number'
+    | '/solitaire'
+    | '/win'
   id:
     | '__root__'
     | '/'
     | '/color/'
+    | '/connections/'
     | '/emoji/'
     | '/math/'
     | '/number/'
@@ -179,6 +206,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ColorIndexRoute: typeof ColorIndexRoute
+  ConnectionsIndexRoute: typeof ConnectionsIndexRoute
   EmojiIndexRoute: typeof EmojiIndexRoute
   MathIndexRoute: typeof MathIndexRoute
   NumberIndexRoute: typeof NumberIndexRoute
@@ -189,6 +217,7 @@ export interface RootRouteChildren {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ColorIndexRoute: ColorIndexRoute,
+  ConnectionsIndexRoute: ConnectionsIndexRoute,
   EmojiIndexRoute: EmojiIndexRoute,
   MathIndexRoute: MathIndexRoute,
   NumberIndexRoute: NumberIndexRoute,
@@ -208,6 +237,7 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/color/",
+        "/connections/",
         "/emoji/",
         "/math/",
         "/number/",
@@ -220,6 +250,9 @@ export const routeTree = rootRoute
     },
     "/color/": {
       "filePath": "color/index.tsx"
+    },
+    "/connections/": {
+      "filePath": "connections/index.tsx"
     },
     "/emoji/": {
       "filePath": "emoji/index.tsx"

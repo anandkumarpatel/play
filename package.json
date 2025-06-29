@@ -20,21 +20,22 @@
   },
   "dependencies": {
     "@gfazioli/mantine-flip": "^1.0.23",
-    "@mantine/core": "^7.14.3",
-    "@mantine/hooks": "^7.14.3",
-    "@mantine/notifications": "^7.14.3",
+    "@mantine/core": "^8.1.2",
+    "@mantine/hooks": "^8.1.2",
+    "@mantine/notifications": "^8.1.2",
     "@tanstack/react-router": "^1.84.2",
     "@tanstack/router": "^0.0.1-beta.53",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-textfit": "^1.1.1"
   },
   "devDependencies": {
-    "@vite-pwa/assets-generator": "^0.2.6",
     "@eslint/js": "^9.15.0",
     "@tanstack/router-devtools": "^1.84.2",
     "@tanstack/router-plugin": "^1.83.1",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
+    "@vite-pwa/assets-generator": "^0.2.6",
     "@vitejs/plugin-react": "^4.3.4",
     "eslint": "^9.15.0",
     "eslint-plugin-react-hooks": "^5.0.0",

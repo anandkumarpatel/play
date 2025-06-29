@@ -5,7 +5,7 @@ import './root.css'
 
 export const Route = createRootRoute({
   component: () => (
-    <AppShell style={{ height: '100vh' }} header={{ height: 48 }} padding='xs'>
+    <AppShell style={{ height: '100vh' }} header={{ height: 48 }}>
       <AppShell.Header>
         <Group h='100%' px='md'>
           <Link to='/' className='link'>

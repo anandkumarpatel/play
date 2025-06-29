@@ -74,7 +74,7 @@ const GameBoard: React.FC<GameBoardProps> = ({ baseCards, faceUp = false }) => {
   }, [isGameComplete, navigate])
 
   return (
-    <SimpleGrid cols={3} h='100%'>
+    <SimpleGrid cols={3} h='100%' p='xs'>
       {cards.map((card, index) => (
         <FlipCard
           fontSize={card.fontSize}
