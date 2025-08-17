@@ -89,12 +89,12 @@ const GameBoard: React.FC<GameBoardProps> = ({ baseCards, faceUp = false }) => {
         <FlipCard
           fontSize={card.fontSize}
           color={card.backgroundColor}
-          key={`${index}-${isGameStarted}`}
+          key={index}
           img={card.img}
           onPress={() => handleCardPress(index)}
           isMatched={card.isMatched}
-          faceUp={faceUp || !isGameStarted}
-          isFlipped={!isGameStarted || selectedCard1Index === index || selectedCard2Index === index} // Pass isFlipped prop to control card visibility
+          faceUp={faceUp}
+          isFlipped={isGameStarted ? selectedCard1Index === index || selectedCard2Index === index : true}
         />
       ))}
     </SimpleGrid>
