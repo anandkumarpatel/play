@@ -25,6 +25,11 @@ export const games = [
     navText: 'Play Solitaire',
   },
   {
+    pathName: 'sequence',
+    title: 'Sequence',
+    navText: 'Play Sequence Game',
+  },
+  {
     pathName: 'connections',
     title: 'Connections',
     navText: 'Play Connections Game',
