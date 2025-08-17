@@ -51,7 +51,7 @@ const GameBoard: React.FC<GameBoardProps> = ({ baseCards, faceUp = false }) => {
     const selectedCard2 = selectedCard2Index !== null ? cards[selectedCard2Index] : null
     if (selectedCard1Index === null) return
     const didMatch = selectedCard1!.id === selectedCard2!.id
-    const timeout = 1200
+    const timeout = 1000
     setTimeout(() => {
       if (didMatch) {
         const updatedCards = [...cards]
@@ -71,7 +71,7 @@ const GameBoard: React.FC<GameBoardProps> = ({ baseCards, faceUp = false }) => {
     if (isGameComplete) {
       setTimeout(() => {
         navigate({ to: '/win' })
-      }, 1000)
+      }, 800)
     }
   }, [isGameComplete, navigate])
 

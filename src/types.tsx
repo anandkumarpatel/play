@@ -24,9 +24,4 @@ export const games = [
     title: 'Solitaire',
     navText: 'Play Solitaire',
   },
-  {
-    pathName: 'connections',
-    title: 'Connections',
-    navText: 'Play Connections Game',
-  },
 ]
