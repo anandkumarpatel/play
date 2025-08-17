@@ -30,8 +30,10 @@ const GameBoard: React.FC<GameBoardProps> = ({ baseCards, faceUp = false }) => {
   const [cards, setCards] = useState<Card[]>(newCards)
   const [selectedCard1Index, setSelectedCard1] = useState<number | null>(null)
   const [selectedCard2Index, setSelectedCard2] = useState<number | null>(null)
+  const [isGameStarted, setIsGameStarted] = useState<boolean>(false)
 
   const handleCardPress = (index: number) => {
+    if (!isGameStarted) return
     const isPaused = selectedCard1Index !== null && selectedCard2Index !== null
     if (isPaused) return
     if (index === selectedCard1Index) return
@@ -73,6 +75,14 @@ const GameBoard: React.FC<GameBoardProps> = ({ baseCards, faceUp = false }) => {
     }
   }, [isGameComplete, navigate])
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsGameStarted(true)
+    }, 1000)
+
+    return () => clearTimeout(timer)
+  }, [])
+
   return (
     <SimpleGrid cols={3} h='100%' p='xs'>
       {cards.map((card, index) => (
@@ -84,7 +94,7 @@ const GameBoard: React.FC<GameBoardProps> = ({ baseCards, faceUp = false }) => {
           onPress={() => handleCardPress(index)}
           isMatched={card.isMatched}
           faceUp={faceUp}
-          isFlipped={selectedCard1Index === index || selectedCard2Index === index} // Pass isFlipped prop to control card visibility
+          isFlipped={isGameStarted ? selectedCard1Index === index || selectedCard2Index === index : true}
         />
       ))}
     </SimpleGrid>

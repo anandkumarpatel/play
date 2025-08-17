@@ -30,6 +30,7 @@ const FlipCard = ({ img, onPress, isMatched, isFlipped, color, faceUp = false, f
           onClick={onPress}
           style={[transitionStyle, { display: 'block' }, base, isMatched && transitionStyle.display === 'none' && { visibility: 'hidden' }]}
           duration={flipTime}
+          defaultFlipped={true}
         >
           {/* front size (blank unless faceUp) */}
           <Paper style={base} radius='xl' withBorder shadow='xl' bg={frontColor}>
